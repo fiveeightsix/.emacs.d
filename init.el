@@ -791,7 +791,7 @@
   nil
   '(setq name (skeleton-read "Name (space-separated words): "))
   "export class " (s-upper-camel-case name) " implements Action {\n"
-  > "type = ActionsList." (upcase (s-snake-case name)) ";\n"
+  > "type = " (upcase (s-snake-case name)) ";\n"
   > "constructor(public payload: any) { }\n"
   "}\n")
 
