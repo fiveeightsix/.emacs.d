@@ -203,6 +203,20 @@
 ;; Use web-mode on .jsx files
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
+;; Web mode
+
+(defun ki/web-mode-setup ()
+  "Set options for web-mode."
+  (electric-pair-mode t)
+  (subword-mode t)
+  (setq web-mode-enable-css-colorization t)
+  (setq web-mode-enable-comment-keywords t)
+  (setq web-mode-enable-current-element-highlight t)
+  (setq web-mode-enable-current-column-highlight t)
+  (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+
+(add-hook 'web-mode-hook 'ki/web-mode-setup)
+
 ;; eslint can check .jsx syntax - use this in web-mode
 (flycheck-add-mode 'javascript-eslint 'web-mode)
 
