@@ -4,3 +4,8 @@
 request
 /projectile-bookmarks.eld
 /bookmarks
+/auto-save-list
+/backup-files
+/elpa
+/eshell
+/org-clock-save.el
