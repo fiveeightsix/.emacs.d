@@ -16,7 +16,7 @@
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(package-selected-packages
    (quote
-    (s markdown-mode ng2-mode typescript-mode projectile smart-mode-line ssass-mode scss-mode js2-refactor js2-mode ace-window geiser magit zenburn-theme web-mode rainbow-mode queue php-mode paredit org lorem-ipsum json-mode jinja2-mode jedi graphviz-dot-mode gnuplot-mode gnuplot glsl-mode flymake-jslint flymake-css flycheck dirtree crontab-mode buffer-move backtrace-mode apache-mode)))
+    (scad-mode tide spacemacs-theme s markdown-mode typescript-mode projectile smart-mode-line ssass-mode scss-mode js2-refactor js2-mode ace-window geiser magit zenburn-theme web-mode rainbow-mode queue php-mode paredit org lorem-ipsum json-mode jinja2-mode jedi graphviz-dot-mode gnuplot-mode gnuplot glsl-mode flymake-jslint flymake-css flycheck crontab-mode buffer-move backtrace-mode apache-mode)))
  '(reb-auto-match-limit 2000)
  '(rng-schema-locating-files
    (quote

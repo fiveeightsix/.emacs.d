@@ -222,6 +222,27 @@
 
 
 ;;;
+;;; Typescript
+;;;
+;; (require 'tide) 
+
+;; (defun ki/tide-mode-setup ()
+;;   "Set options for tide."
+;;   (interactive)
+;;   (tide-setup)
+;;   (flycheck-mode +1)
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (eldoc-mode +1)
+;;   (tide-hl-identifier-mode +1))
+
+;; ;;(add-hook 'before-save-hook 'tide-format-before-save)
+
+;; (add-hook 'typescript-mode-hook #'ki/tide-mode-setup)
+(load "~/.emacs.d/lang/typescript.el")
+
+
+
+;;;
 ;;; HTML
 ;;;
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
@@ -791,7 +812,7 @@
   nil
   '(setq name (skeleton-read "Name (space-separated words): "))
   "export class " (s-upper-camel-case name) " implements Action {\n"
-  > "type = " (upcase (s-snake-case name)) ";\n"
+  > "readonly type = " (upcase (s-snake-case name)) ";\n"
   > "constructor(public payload: any) { }\n"
   "}\n")
 
