@@ -3,12 +3,12 @@
 (load custom-file)
 
 (setq user-mail-address "mail@karlinglis.net")
-(setq tramp-default-method "ssh")
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 (fset 'yes-or-no-p 'y-or-n-p)
 (delete-selection-mode t)   ;; Delete/type over selection
 (setq-default indent-tabs-mode nil)
-
+(setq tramp-default-method "ssh")
 (setq set-mark-command-repeat-pop t)   ;; Slightly faster pop-to-mark command
 
 (setq backup-directory-alist '(("" . "~/.emacs.d/backup-files")))
@@ -54,16 +54,27 @@
 ;; (ido-mode 1)
 ;; (setq ido-enable-flex-matching t)
 
-(use-package ivy :demand
+(use-package ivy
+  :ensure t
+  :diminish ivy-mode
   :config
+  (ivy-mode 1)
   (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d"))
+        ivy-count-format "%d/%d "))
+
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-keymap-prefix (kbd "C-x p"))
+  :config
+  (projectile-global-mode)
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-switch-project-action 'projectile-dired))
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
-  :init
-  (progn
-    (color-theme-sanityinc-tomorrow-eighties )))
+  :config
+  (load-theme 'sanityinc-tomorrow-eighties t))
 
 (sml/setup)
 
@@ -75,10 +86,6 @@
 (setq ac-use-menu-map t)
 (define-key ac-completing-map (kbd "<C-n>") 'ac-next)
 (define-key ac-completing-map (kbd "<C-p>") 'ac-previous)
-
-(setq projectile-keymap-prefix (kbd "C-x p"))
-(projectile-global-mode)
-(setq projectile-switch-project-action 'projectile-dired)
 
 (require 'flycheck)
 

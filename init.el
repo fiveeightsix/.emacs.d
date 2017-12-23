@@ -9,5 +9,6 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+(require 'diminish)
 
 (org-babel-load-file (expand-file-name "~/.emacs.d/dot.emacs.org"))
