@@ -56,13 +56,12 @@
 * Mode line
 
 #+BEGIN_SRC emacs-lisp
-  (use-package spaceline
-    :ensure t
-    :init
-    (setq powerline-default-separator 'bar)
+  (use-package spaceline-config
+    :ensure spaceline
     :config
-    (require 'spaceline-config)
-    (spaceline-spacemacs-theme))
+    (setq powerline-default-separator 'bar)
+    (spaceline-spacemacs-theme)
+    (spaceline-toggle-buffer-size-off))
 #+END_SRC
 
 * Global key bindings

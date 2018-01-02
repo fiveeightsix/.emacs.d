@@ -9,3 +9,4 @@ request
 /elpa
 /eshell
 /org-clock-save.el
+dot.emacs.el
