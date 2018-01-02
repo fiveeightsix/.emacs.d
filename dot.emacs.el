@@ -2,6 +2,9 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+
 (setq user-mail-address "mail@karlinglis.net")
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -17,6 +20,18 @@
 ;; Reference: http://pragmaticemacs.com/emacs/automatically-revert-buffers/
 ;; (global-auto-revert-mode 1)
 ;; (setq global-auto-revert-non-file-buffers t)
+
+(use-package color-theme-sanityinc-tomorrow
+  :config
+  (load-theme 'sanityinc-tomorrow-eighties t))
+
+(use-package spaceline
+  :ensure t
+  :init
+  (setq powerline-default-separator 'bar)
+  :config
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme))
 
 (global-set-key (kbd "<f8>") 'magit-status)
 (global-set-key (kbd "<M-up>") 'backward-paragraph)
@@ -70,13 +85,6 @@
   (projectile-global-mode)
   (setq projectile-completion-system 'ivy)
   (setq projectile-switch-project-action 'projectile-dired))
-
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t
-  :config
-  (load-theme 'sanityinc-tomorrow-eighties t))
-
-(sml/setup)
 
 (require 'auto-complete-config)
 (ac-config-default)

@@ -1,9 +1,8 @@
+#+TITLE: Emacs configuration
 #+STARTUP: content
 
-* Emacs configuration
-
-** Custom settings
-
+* Custom settings
+  
    Load these from a separate file. 
 
 #+begin_src emacs-lisp
@@ -11,7 +10,12 @@
 (load custom-file)
 #+end_src
 
-** Interface
+* Interface
+
+#+BEGIN_SRC emacs-lisp
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+#+END_SRC
 
 #+begin_src emacs-lisp
   (setq user-mail-address "mail@karlinglis.net")
@@ -36,8 +40,32 @@
   ;; (global-auto-revert-mode 1)
   ;; (setq global-auto-revert-non-file-buffers t)
 #+end_src
+   
+* Appearence
 
-** Global key bindings
+# #+begin_src emacs-lisp
+#   (load-theme 'zenburn t)
+# #+end_src
+
+#+BEGIN_SRC emacs-lisp
+  (use-package color-theme-sanityinc-tomorrow
+    :config
+    (load-theme 'sanityinc-tomorrow-eighties t))
+#+END_SRC
+
+* Mode line
+
+#+BEGIN_SRC emacs-lisp
+  (use-package spaceline
+    :ensure t
+    :init
+    (setq powerline-default-separator 'bar)
+    :config
+    (require 'spaceline-config)
+    (spaceline-spacemacs-theme))
+#+END_SRC
+
+* Global key bindings
 
 #+begin_src emacs-lisp
   (global-set-key (kbd "<f8>") 'magit-status)
@@ -45,7 +73,7 @@
   (global-set-key (kbd "<M-down>") 'forward-paragraph)
 #+end_src
 
-** Secrets
+* Secrets
 
    Keep some stuff out of github.
 
@@ -53,7 +81,7 @@
   (load "~/.emacs.secrets")
 #+end_src
 
-** Buffers and windows
+* Buffers and windows
 
 #+begin_src emacs-lisp
   ;; Use ibuffer:
@@ -83,7 +111,7 @@
   (global-set-key (kbd "M-o") 'ace-window)
 #+end_src
 
-** Completion (Ivy)
+* Completion (Ivy)
 
 #+begin_src emacs-lisp
   ;; (require 'ido)
@@ -101,7 +129,7 @@
           ivy-count-format "%d/%d "))
 #+end_src
 
-** Projectile
+* Projectile
    
 #+begin_src emacs-lisp
     (use-package projectile
@@ -115,27 +143,8 @@
 #+end_src
 
    =projectile-keymap-prefix= needs to be set before the mode is actually loaded. Reference: https://github.com/bbatsov/projectile/issues/991.
-   
-** Appearence
 
-# #+begin_src emacs-lisp
-#   (load-theme 'zenburn t)
-# #+end_src
-
-#+BEGIN_SRC emacs-lisp
-  (use-package color-theme-sanityinc-tomorrow
-    :ensure t
-    :config
-    (load-theme 'sanityinc-tomorrow-eighties t))
-#+END_SRC
-
-   Mode line.
-   
-#+begin_src emacs-lisp
-  (sml/setup)
-#+end_src
-
-** Auto complete
+* Auto complete
 
 #+begin_src emacs-lisp
   (require 'auto-complete-config)
@@ -148,7 +157,7 @@
   (define-key ac-completing-map (kbd "<C-p>") 'ac-previous)
 #+end_src
 
-** Flycheck
+* Flycheck
 
 #+begin_src emacs-lisp
   (require 'flycheck)
@@ -158,9 +167,9 @@
     (flycheck-mode t))
 #+end_src
 
-** Languages
+* Languages
 
-*** CSS/SCSS
+** CSS/SCSS
 
 #+begin_src emacs-lisp
   ;; Use rainbow mode
@@ -174,7 +183,7 @@
   (add-hook 'scss-mode-hook 'rainbow-mode)
 #+end_src
 
-*** Javascript
+** Javascript
 
 #+begin_src emacs-lisp
   ;; Stop flycheck using jshint
@@ -219,7 +228,7 @@
   (flycheck-add-mode 'javascript-eslint 'web-mode)
 #+end_src
 
-*** Typescript
+** Typescript
 
     Use web-mode instead of typescript-mode for better syntax highlighting.
 
@@ -258,14 +267,14 @@
   (add-hook 'typescript-mode-hook 'ki/tide-mode-setup)
 #+end_src
 
-*** HTML
+** HTML
 
 #+begin_src emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.svg\\'" . web-mode))
 #+end_src
 
-*** Scheme
+** Scheme
 
 #+begin_src emacs-lisp
   (setq geiser-default-implementation 'guile)
@@ -274,13 +283,13 @@
   (add-hook 'geiser-repl-mode-hook 'enable-paredit-mode)
 #+end_src
 
-*** Emacs lisp
+** Emacs lisp
 
 #+begin_src emacs-lisp
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 #+end_src
 
-*** Python
+** Python
 
 #+begin_src emacs-lisp
   (setq python-shell-interpreter "python3")
@@ -290,13 +299,13 @@
   (add-hook 'python-mode-hook 'jedi:setup)
 #+end_src
 
-*** WebGL
+** WebGL
 
 #+begin_src emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.shader\\'" . glsl-mode))
 #+end_src
 
-*** Maxima
+** Maxima
 
 #+begin_src emacs-lisp
   (add-to-list 'load-path "/usr/share/maxima/5.32.1/emacs")
@@ -308,7 +317,7 @@
   (add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
 #+end_src
 
-** Org
+* Org
 
 #+begin_src emacs-lisp
   (require 'org)
@@ -659,13 +668,13 @@
     (shell-command "org-cp"))
 #+end_src
 
-** JIRA
+* JIRA
 
 #+begin_src emacs-lisp
   (setq jiralib-url "https://shapecast.atlassian.net")
 #+end_src
 
-** Lorem ipsum text
+* Lorem ipsum text
 
 #+begin_src emacs-lisp
   (autoload 'Lorem-ipsum-insert-paragraphs "lorem-ipsum" "" t)
@@ -673,7 +682,7 @@
   (autoload 'Lorem-ipsum-insert-list "lorem-ipsum" "" t)
 #+end_src
 
-** LaTeX
+* LaTeX
    
    Use xelatex to compile LaTeX files to PDF.
    
@@ -689,7 +698,7 @@
                     t "%r.pdf")))
 #+end_src
 
-** Ispell
+* Ispell
 
 #+begin_src emacs-lisp
   (defun ki/ispell-region-or-buffer (r-beg r-end)
@@ -703,7 +712,7 @@
 
 #+end_src
 
-** Skeletons
+* Skeletons
 
 #+begin_src emacs-lisp
   (require 's)
@@ -882,7 +891,7 @@
     "\\end{document}")
 #+end_src
 
-** Functions
+* Functions
 
 #+begin_src emacs-lisp
   (defun dot-emacs ()
@@ -986,7 +995,7 @@
       (kill-new (ki/px-to-rem px-value 14))))
 #+end_src
 
-*** Text transform
+** Text transform
 
 #+begin_src emacs-lisp
 (defvar title-case-exclude '("at" "or" "but" "by" "for" "from" "in" "into" 
@@ -1054,7 +1063,7 @@
   (downcase ws-str))
 #+end_src
 
-*** Word counting functions
+** Word counting functions
 
     Based on count-words-region from: 
 http://www.gnu.org/software/emacs/emacs-lisp-intro/html_node/Whitespace-Bug.html#Whitespace-Bug
