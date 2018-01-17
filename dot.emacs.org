@@ -60,8 +60,9 @@
     :ensure spaceline
     :config
     (setq powerline-default-separator 'bar)
-    (spaceline-spacemacs-theme)
-    (spaceline-toggle-buffer-size-off))
+    (spaceline-toggle-buffer-size-off)
+    (spaceline-toggle-projectile-root-on)
+    (spaceline-spacemacs-theme))
 #+END_SRC
 
 * Global key bindings

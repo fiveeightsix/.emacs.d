@@ -25,12 +25,12 @@
   :config
   (load-theme 'sanityinc-tomorrow-eighties t))
 
-(use-package spaceline
-  :ensure t
-  :init
-  (setq powerline-default-separator 'bar)
+(use-package spaceline-config
+  :ensure spaceline
   :config
-  (require 'spaceline-config)
+  (setq powerline-default-separator 'bar)
+  (spaceline-toggle-buffer-size-off)
+  (spaceline-toggle-projectile-root-on)
   (spaceline-spacemacs-theme))
 
 (global-set-key (kbd "<f8>") 'magit-status)
