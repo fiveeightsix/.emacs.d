@@ -118,6 +118,10 @@
 
 ;; Use js2-mode on .js files
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.mjs\\'" . js2-mode))
+
+;; Detect jsx usage in react files
+(add-to-list 'magic-mode-alist '("import.*react" . rjsx-mode))
 
 (defun ki/js2-mode-setup ()
   "Set options for js2-mode."
@@ -131,9 +135,6 @@
   (js2r-add-keybindings-with-prefix "C-c C-m"))
 
 (add-hook 'js2-mode-hook 'ki/js2-mode-setup)
-
-;; Use web-mode on .jsx files
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
 ;; Web mode
 
@@ -504,7 +505,7 @@
 
 ;; LaTeX fragments
 (setq org-format-latex-options
-      (plist-put org-format-latex-options :scale 1.8))
+      (plist-put org-format-latex-options :scale 1.5))
 (setq org-latex-packages-alist
       (quote (("" "esdiff" t)
               ("" "mathpartir" t)
@@ -518,6 +519,10 @@
 (require 'ox-odt)
 (setq org-latex-to-mathml-convert-command
       "latexmlmath \"%i\" --presentationmathml=%o")
+;; (setq org-latex-to-mathml-convert-command
+;;       "java -jar %j -unicode -force -df %o %I"
+;;       org-latex-to-mathml-jar-file
+;;       "~/opt/mathtoweb/mathtoweb.jar")
 
 ;; Additional pretty entities
 (add-to-list 'org-entities-user
