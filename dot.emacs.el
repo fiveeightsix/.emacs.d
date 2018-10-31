@@ -489,7 +489,8 @@
          (css . t)
          (gnuplot . t)
          (maxima . t)
-         (sqlite . t))))
+         (sqlite . t)
+         (plantuml .t))))
 
 (setq org-babel-python-command "python3")
 
@@ -514,6 +515,10 @@
 
 ;; Ditaa
 (setq org-ditaa-jar-path "/usr/bin/ditaa")
+
+;; PlantUML
+(setq plantuml-jar-path "/usr/bin/plantuml")
+(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 
 ;; LaTeX maths in ODT export
 (require 'ox-odt)

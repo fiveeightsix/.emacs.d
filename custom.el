@@ -28,7 +28,7 @@
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(package-selected-packages
    (quote
-    (rjsx-mode csv-mode diminish spaceline powerline counsel ivy flatland-theme color-theme-sanityinc-tomorrow scad-mode tide spacemacs-theme s markdown-mode typescript-mode projectile ssass-mode scss-mode js2-refactor js2-mode ace-window geiser magit zenburn-theme web-mode rainbow-mode queue php-mode paredit org lorem-ipsum json-mode jinja2-mode jedi graphviz-dot-mode gnuplot-mode gnuplot glsl-mode flymake-jslint flymake-css flycheck crontab-mode buffer-move backtrace-mode apache-mode)))
+    (ox-gfm plantuml-mode rjsx-mode csv-mode diminish spaceline powerline counsel ivy flatland-theme color-theme-sanityinc-tomorrow scad-mode tide spacemacs-theme s markdown-mode typescript-mode projectile ssass-mode scss-mode js2-refactor js2-mode ace-window geiser magit zenburn-theme web-mode rainbow-mode queue php-mode paredit org lorem-ipsum json-mode jinja2-mode jedi graphviz-dot-mode gnuplot-mode gnuplot glsl-mode flymake-jslint flymake-css flycheck crontab-mode buffer-move backtrace-mode apache-mode)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(reb-auto-match-limit 2000)
  '(rng-schema-locating-files
