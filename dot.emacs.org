@@ -216,6 +216,7 @@
     (setq web-mode-enable-comment-keywords t)
     (setq web-mode-enable-current-element-highlight t)
     (setq web-mode-enable-current-column-highlight t)
+    (setq web-mode-attr-indent-offset 4)
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 
   (add-hook 'web-mode-hook 'ki/web-mode-setup)
@@ -511,6 +512,7 @@
 
 
   ;; Export settings
+  (require 'ox-gfm)
   (setq org-export-allow-bind-keywords t)
   (setq org-html-validation-link nil)
   (setq org-html-postamble t)
@@ -594,7 +596,8 @@
            (gnuplot . t)
            (maxima . t)
            (sqlite . t)
-           (plantuml .t))))
+           (plantuml . t)
+           (latex . t))))
 
   (setq org-babel-python-command "python3")
 

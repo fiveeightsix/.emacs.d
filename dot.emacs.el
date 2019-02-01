@@ -1,4 +1,3 @@
-
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
@@ -146,6 +145,7 @@
   (setq web-mode-enable-comment-keywords t)
   (setq web-mode-enable-current-element-highlight t)
   (setq web-mode-enable-current-column-highlight t)
+  (setq web-mode-attr-indent-offset 4)
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 
 (add-hook 'web-mode-hook 'ki/web-mode-setup)
@@ -407,6 +407,7 @@
 
 
 ;; Export settings
+(require 'ox-gfm)
 (setq org-export-allow-bind-keywords t)
 (setq org-html-validation-link nil)
 (setq org-html-postamble t)
@@ -490,7 +491,8 @@
          (gnuplot . t)
          (maxima . t)
          (sqlite . t)
-         (plantuml .t))))
+         (plantuml . t)
+         (latex . t))))
 
 (setq org-babel-python-command "python3")
 
@@ -867,9 +869,9 @@ If there is a text selection (a phrase), use that."
     (kill-new (ki/px-to-rem px-value 14))))
 
 (defvar title-case-exclude '("at" "or" "but" "by" "for" "from" "in" "into" 
-                                   "like" "near" "of" "off" "on" "onto" "out" 
-                                   "over" "to" "up" "upon" "with" "nor" "so" 
-                                   "yet" "the" "if" "and")
+				   "like" "near" "of" "off" "on" "onto" "out" 
+				   "over" "to" "up" "upon" "with" "nor" "so" 
+				   "yet" "the" "if" "and")
   "List of words not to capitalize when in titles.")
 
 
@@ -878,7 +880,7 @@ If there is a text selection (a phrase), use that."
   (if (equal object (car list))
       t
     (if (not (equal nil (cdr list)))
-        (in-list-p object (cdr list))
+	(in-list-p object (cdr list))
       nil)))
 
 
@@ -886,23 +888,23 @@ If there is a text selection (a phrase), use that."
   "Capitalize important words in the selected region, like a title."
   (interactive "r")
   (let (word 
-        (count 0)) ; keep track of number of words
+	(count 0)) ; keep track of number of words
     (save-excursion
       (save-restriction
-        (narrow-to-region r-beg r-end)
-        ;; Make everything lowercase, or matching won't work:
-        (downcase-region r-beg r-end)
-        (goto-char (point-min))
-        ;; Isolate words, work on one at a time:
-        (while (re-search-forward "\\w\\{2,\\}" nil t)
-          (setq word (match-string 0)) 
-          (delete-region (match-beginning 0) (match-end 0))
-          ;; Capitalize word only if it's the first, or if it's not in the list:
-          (if (or (zerop count)
-                  (not (in-list-p word title-case-exclude)))
-              (insert (capitalize word))
-            (insert word))
-          (setq count (1+ count)))))))
+	(narrow-to-region r-beg r-end)
+	;; Make everything lowercase, or matching won't work:
+	(downcase-region r-beg r-end)
+	(goto-char (point-min))
+	;; Isolate words, work on one at a time:
+	(while (re-search-forward "\\w\\{2,\\}" nil t)
+	  (setq word (match-string 0)) 
+	  (delete-region (match-beginning 0) (match-end 0))
+	  ;; Capitalize word only if it's the first, or if it's not in the list:
+	  (if (or (zerop count)
+		  (not (in-list-p word title-case-exclude)))
+	      (insert (capitalize word))
+	    (insert word))
+	  (setq count (1+ count)))))))
 
 
 (defun title-case-string (t-str)
@@ -937,8 +939,8 @@ Use count-words-region to call interactively."
     (let ((count 0))
       (goto-char beginning)
       (while (and (< (point) end)
-                  (re-search-forward "\\w+\\W*" end t))
-        (setq count (1+ count)))
+		  (re-search-forward "\\w+\\W*" end t))
+	(setq count (1+ count)))
       count)))
     
 
@@ -952,11 +954,11 @@ Use count-words-region to call interactively."
       (setq count (count-words beginning end))
       ;; print in message:
       (cond ((zerop count)
-             (message "The region does NOT have any words."))
-            ((= 1 count)
-             (message "The region has 1 word."))
-            (t
-             (message "The region has %d words." count))))))
+	     (message "The region does NOT have any words."))
+	    ((= 1 count)
+	     (message "The region has 1 word."))
+	    (t
+	     (message "The region has %d words." count))))))
 
 
 (defun count-words-xml (beginning end)
@@ -968,7 +970,7 @@ Use count-words-region-xml to call interactively."
       (goto-char (point-min))
       ;; remove all tags:
       (while (re-search-forward "</?[^\0]*?>" nil t)
-        (replace-match "" nil nil))
+	(replace-match "" nil nil))
       ;; count what remains:
       (count-words (point-min) (point-max)))))
 
@@ -982,8 +984,8 @@ Use count-words-region-xml to call interactively."
       (setq count (count-words-xml beginning end))
       ;; print in message:
       (cond ((zerop count)
-             (message "The region does NOT have any words."))
-            ((= 1 count)
-             (message "The region has 1 word, excluding XML tags."))
-            (t
-             (message "The region has %d words, excluding XML tags." count))))))
+	     (message "The region does NOT have any words."))
+	    ((= 1 count)
+	     (message "The region has 1 word, excluding XML tags."))
+	    (t
+	     (message "The region has %d words, excluding XML tags." count))))))
