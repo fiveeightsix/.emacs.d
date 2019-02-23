@@ -164,6 +164,15 @@
 
 * Languages
 
+** editorconfig
+
+#+BEGIN_SRC emacs-lisp
+  (use-package editorconfig
+    :ensure t
+    :config
+    (editorconfig-mode 1))
+#+END_SRC
+
 ** CSS/SCSS
 
 #+begin_src emacs-lisp
@@ -216,7 +225,7 @@
     (setq web-mode-enable-comment-keywords t)
     (setq web-mode-enable-current-element-highlight t)
     (setq web-mode-enable-current-column-highlight t)
-    (setq web-mode-attr-indent-offset 4)
+    ;; (setq web-mode-attr-indent-offset 4)
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 
   (add-hook 'web-mode-hook 'ki/web-mode-setup)
@@ -313,7 +322,6 @@
   (setq imaxima-use-maxima-mode-flag t)
   (add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
 #+end_src
-
 * Org
 
 #+begin_src emacs-lisp
@@ -839,7 +847,7 @@
     nil
     '(setq name (skeleton-read "Name (space-separated words): "))
     "export class " (s-upper-camel-case name) " implements Action {\n"
-    > "readonly type = " (upcase (s-snake-case name)) ";\n"
+    > "readonly type = ActionTypes" (s-upper-camel-case name) ";\n"
     > "constructor(public payload: any) { }\n"
     "}\n")
 

@@ -1,3 +1,4 @@
+# Temporary Emacs files only relevant to the particular machine
 /ac-comphist.dat
 /projectile.cache
 /ido.last
@@ -9,6 +10,11 @@ request
 /elpa
 /eshell
 /org-clock-save.el
-dot.emacs.el
+session.*
 recentf
+
+# Generated from dot.emacs.org
+dot.emacs.el
+
+# Python
 .python-environments
