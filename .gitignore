@@ -10,3 +10,5 @@ request
 /eshell
 /org-clock-save.el
 dot.emacs.el
+recentf
+.python-environments
