@@ -1,20 +1,6 @@
-# Temporary Emacs files only relevant to the particular machine
-/ac-comphist.dat
-/projectile.cache
-/ido.last
-request
-/projectile-bookmarks.eld
-/bookmarks
-/auto-save-list
-/backup-files
-/elpa
-/eshell
-/org-clock-save.el
-session.*
-recentf
-
-# Generated from dot.emacs.org
-dot.emacs.el
-
-# Python
-.python-environments
+*
+!.gitignore
+!init.el
+!custom.el
+!dot.emacs.org
+!abbrev_defs
