@@ -33,6 +33,8 @@
   (spaceline-toggle-projectile-root-on)
   (spaceline-spacemacs-theme))
 
+(use-package diminish)
+
 (global-set-key (kbd "<f8>") 'magit-status)
 (global-set-key (kbd "<M-up>") 'backward-paragraph)
 (global-set-key (kbd "<M-down>") 'forward-paragraph)
@@ -103,6 +105,7 @@
 
 (use-package editorconfig
   :ensure t
+  :diminish editorconfig-mode
   :config
   (editorconfig-mode 1))
 

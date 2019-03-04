@@ -60,6 +60,10 @@
     (spaceline-spacemacs-theme))
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish)
+#+END_SRC
+
 * Global key bindings
 
 #+begin_src emacs-lisp
@@ -169,6 +173,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package editorconfig
     :ensure t
+    :diminish editorconfig-mode
     :config
     (editorconfig-mode 1))
 #+END_SRC
