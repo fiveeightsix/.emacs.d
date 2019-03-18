@@ -737,7 +737,10 @@
 
 #+begin_src emacs-lisp
   (require 's)
+#+end_src
 
+** Web
+#+begin_src emacs-lisp
   (define-skeleton skel-html5-doc
     "Insert skeleton HTML5 document, querying for title."
     "Title: "
@@ -751,48 +754,10 @@
     > _"\n"
     "</body>\n"
     "</html>")
+#+end_src
 
-  (define-skeleton skel-jquery-iife
-    "Insert immediately invoked function expression to wrap jQuery code."
-    nil
-    "(function ($) {\n\n"
-    > _"\n\n"
-    "}(jQuery));")
-
-  (define-skeleton skel-d3-closure-getter-setter
-    "Insert getter-setter method prompting for object and value name."
-    nil
-    > (setq obj (skeleton-read "Object: ")) "." 
-    (setq prop (skeleton-read "Property: ")) " = function(v) {" \n
-    > "if(!arguments.length) return " prop ";" \n
-    > prop " = v;" \n
-    > "return " obj ";" \n
-    > "};" \n\n)
-
-  (define-skeleton skel-react-component
-    "Insert empty react.js component, prompting for component name."
-    "Component name: "
-    "var " str " = React.createClass({" \n \n
-    > "render: function () {" \n \n
-    > > "return (" \n
-    > > > _ \n
-    > > ");" \n
-    > "}" \n \n
-    "});")
-
-  (define-skeleton skel-react-module
-    "Insert empty react.js component module, prompting for component name."
-    "Component name: "
-    "var React = require('react');" \n \n
-    "var " str " = React.createClass({" \n \n
-    > "render: function () {" \n \n
-    > > "return (" \n
-    > > > _ \n
-    > > ");" \n
-    > "}" \n \n
-    "});" \n \n
-    "module.exports = " str ";")
-
+** Org
+#+begin_src emacs-lisp
   (define-skeleton skel-org-food-recipie
     "Insert necessary headings for recipie entry, querying for title."
     "Title: " 
@@ -806,7 +771,9 @@
     > _"\n\n"
     "*** Equipment\n\n"
     "*** Method\n\n")
+#+end_src
 
+#+begin_src emacs-lisp
   (define-skeleton skel-org-feed
     "Insert feedpage entry, querying for title and URL."
     nil
@@ -814,14 +781,18 @@
     ":FEEDURL:\n"
     (setq url (skeleton-read "Feed URL: ")) "\n"
     ":END:\n\n")
+#+end_src
 
+#+begin_src emacs-lisp
   (define-skeleton skel-org-block-ditaa
     "Insert an org ditaa block, querying for filename."
     "File (no extension): "
     "#+BEGIN_SRC ditaa :file " str ".png :cmdline -E -S\n"
     > _ - \n
     "#+END_SRC\n")
+#+end_src
 
+#+begin_src emacs-lisp
   (define-skeleton skel-org-block-gnuplot
     "Insert an org gnuplot block, querying for filename."
     "File (no extension): "
@@ -830,7 +801,9 @@
     > "set terminal png size 600,400" \n
     > _ - \n
     "#+END_SRC\n")
+#+end_src
 
+#+begin_src emacs-lisp
   (define-skeleton skel-org-block-graphviz-dot
     "Insert an org graphviz dot block, querying for filename."
     "File (no extension): "
@@ -839,23 +812,34 @@
     > > _ - \n
     > "}" \n
     "#+END_SRC" \n)
+#+end_src
 
+#+begin_src emacs-lisp
   (define-skeleton skel-org-block-maxima-latex
     "Insert an org maxima block set up for inline latex display."
     nil
     "#+BEGIN_SRC maxima :exports none :results raw\n"
     > "tex(" _ ")" \n
     "#+END_SRC\n")
+#+end_src
 
+** Angular
+
+#+begin_src emacs-lisp
   (define-skeleton skel-ng-action-class
     "Insert ngrx action class, promting for name and type."
     nil
-    '(setq name (skeleton-read "Name (space-separated words): "))
+    '(setq types (skeleton-read "...ActionTypes (space-separated words): "))
+    '(setq name (skeleton-read "Action class name (space-separated words): "))
     "export class " (s-upper-camel-case name) " implements Action {\n"
-    > "readonly type = ActionTypes" (s-upper-camel-case name) ";\n"
-    > "constructor(public payload: any) { }\n"
+    > "readonly type = " (s-upper-camel-case types) "ActionTypes." (s-upper-camel-case name) ";\n"
+    > "constructor(public payload: any" _ ") { }\n"
     "}\n")
+#+end_src
 
+** Wordpress
+
+#+begin_src emacs-lisp
   (define-skeleton skel-wp-plugin
     "Insert basic plugin file skeleton, querying for name and description."
     nil
@@ -869,7 +853,11 @@
     "*/\n\n"
     _"\n\n"
     "?>")
+#+end_src
 
+** LaTeX
+
+#+begin_src emacs-lisp
   (define-skeleton skel-latex-split-equation-block
     "Inset LaTeX equation* split block while in org mode."
     nil
@@ -878,7 +866,9 @@
     > _ \n
     "\\end{split}" \n
     "\\end{equation*}" \n)
+#+end_src
 
+#+begin_src emacs-lisp
   (define-skeleton skel-latex-tma
     "Template for LaTeX TMAs, prompting for date and title."
     nil
