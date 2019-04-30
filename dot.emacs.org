@@ -2,7 +2,7 @@
 
 * Custom settings
   
-   Load these from a separate file. 
+  Load these from a separate file. 
 
 #+begin_src emacs-lisp
 (setq custom-file "~/.emacs.d/custom.el")
@@ -46,6 +46,10 @@
   (use-package color-theme-sanityinc-tomorrow
     :config
     (load-theme 'sanityinc-tomorrow-eighties t))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (set-default-font "DejaVu Sans Mono Book 14")
 #+END_SRC
 
 * Mode line
