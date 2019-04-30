@@ -256,7 +256,6 @@
       (setq flycheck-check-syntax-automatically '(save mode-enabled idle-change))
       (eldoc-mode +1)))
 
-
   ;; Add web-mode to typescript-tslint supported modes
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'typescript-tslint 'web-mode))
@@ -825,6 +824,8 @@
 
 ** Angular
 
+*** NgRx action
+
 #+begin_src emacs-lisp
   (define-skeleton skel-ng-action-class
     "Insert ngrx action class, promting for name and type."
@@ -835,6 +836,22 @@
     > "readonly type = " (s-upper-camel-case types) "ActionTypes." (s-upper-camel-case name) ";\n"
     > "constructor(public payload: any" _ ") { }\n"
     "}\n")
+#+end_src
+
+*** NgRx reducer
+
+#+begin_src emacs-lisp
+  (define-skeleton skel-ng-reducer
+    "Insert NgRx reducer skeleton"
+    nil
+    "export interface State {\n}\n\n"
+    "export const initialState: State = {\n}\n\n"
+    "export function reducer(state = initialState, action: ActionsUnion): State {\n"
+    > "switch (action.type) {\n"
+    > "default:\n"
+    > "return state;\n"
+    > "}\n"
+    "}")
 #+end_src
 
 ** Wordpress
