@@ -251,7 +251,13 @@
   (require 'web-mode)
   (require 'tide)
 
-  (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
+
+  (defun ki/tide-mode-setup ()
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled idle-change))
+    (eldoc-mode +1))
 
   (defun ki/set-up-tide-on-web-mode ()
     (when (member (file-name-extension (or buffer-file-name "")) '("ts"))
@@ -264,14 +270,6 @@
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'typescript-tslint 'web-mode))
 
-  ;; Ensure both tide an tslint checkers are used
-  ;; https://github.com/ananthakumaran/tide/issues/95
-  ;; (with-eval-after-load 'flycheck
-  ;;   (with-eval-after-load 'tide
-  ;;     (flycheck-add-next-checker 'typescript-tslint 'web-mode)))
-
-  ;;(add-hook 'before-save-hook 'tide-format-before-save)
-
   ;; Keybindings for tide
   (defun tide-set-keys ()
     (local-set-key (kbd "C-c C-t r") 'tide-rename-symbol)
@@ -279,6 +277,7 @@
 
   (add-hook 'web-mode-hook 'ki/set-up-tide-on-web-mode)
   (add-hook 'typescript-mode-hook 'ki/tide-mode-setup)
+  (add-hook 'typescript-mode-hook (lambda () (subword-mode t)))
 #+end_src
 
 ** HTML
