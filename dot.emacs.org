@@ -338,6 +338,14 @@
     :mode ("\\.rs\\'" . rust-mode))
 #+end_src
 
+** TOML
+
+#+begin_src emacs-lisp
+  (use-package toml-mode
+    :ensure t
+    :mode ("\\.toml\\'" . toml-mode))
+#+end_src
+
 * Org
 
 #+begin_src emacs-lisp
