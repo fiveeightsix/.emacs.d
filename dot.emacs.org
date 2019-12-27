@@ -708,12 +708,6 @@
     (shell-command "org-cp"))
 #+end_src
 
-* JIRA
-
-#+begin_src emacs-lisp
-  (setq jiralib-url "https://shapecast.atlassian.net")
-#+end_src
-
 * Lorem ipsum text
 
 #+begin_src emacs-lisp
@@ -946,101 +940,6 @@
     "Opens .emacs (init.el) file for customisation."
     (interactive)
     (find-file "~/.emacs.d/init.el"))
-
-  ;; Lookup fuctions 
-  ;; Reference: http://xahlee.org/emacs/emacs_lookup_ref.html
-
-  (defun web-lookup-function (base-url)
-    "Look up the fuction name under cursor in an online documentation source,
-  given by base-url. If there is a text selection (a phrase), use that.
-
-  This command is intended to be called by specialised wrapper functions,
-  and switches to the browser."
-    (interactive)
-    (let (function-name url)
-      (setq function-name
-            (if (region-active-p)
-                (buffer-substring-no-properties (region-beginning) (region-end))
-              (thing-at-point 'symbol)))
-      (setq function-name (replace-regexp-in-string " " "_" function-name))
-      (setq url (concat base-url function-name))
-      (browse-url url)))
-
-
-  (defun web-lookup-function-php ()
-    "Look up the word under the cursor in the online PHP manual at uk.php.net.
-  This command switches to the browser"
-    (interactive)
-    (web-lookup-function "http://uk.php.net/"))
-
-
-  (defun web-lookup-function-wordpress ()
-    "Look up the word under the cursor in the wordpress documentation at codex.wordpress.org.
-  This command switches to the browser"
-    (interactive)
-    (web-lookup-function "http://codex.wordpress.org/Function_Reference/"))
-
-
-  ;; Bind to useful keys:
-  (global-set-key (kbd "C-h C-p") 'web-lookup-function-php)
-  (global-set-key (kbd "C-h C-q") 'web-lookup-function-jquery)
-  (global-set-key (kbd "C-h C-w") 'web-lookup-function-wordpress)
-
-
-  ;; Getting the atrist/title of the current track on the radio
-
-  (require 'json)
-
-
-  (defun ki/json-url-to-alist (url)
-    "Return alist representation of JSON data at url."
-    (with-current-buffer (url-retrieve-synchronously url)
-     ;; match the opening {, to ensure we start on a JSON object
-     (goto-char (point-min))
-     (re-search-forward "{")
-     (goto-char (match-beginning 0))
-     (let ((json-object-type 'alist))
-       (json-read))))
-
-
-  (defun ki/bbc-radio-nowplaying (url)
-    "Get title/artist of current track from BBC nowandnext JSON request url.
-  Returns string in the form \"<artist> - <title>\"."
-    (let* ((nn-alist (ki/json-url-to-alist url))
-           (message-alist (assq 'message nn-alist)))
-      (concat (assoc-default 'artist message-alist) " - " (assoc-default 'title message-alist))))
-
-
-  ;; Converting px to rem in Wordpress CSS
-
-  (defun ki/px-to-rem (px-value rembase)
-    "Convert CSS dimension from px to rem.
-  Returns result as string shortened to 11 characters and suffixed with 'rem' (bit hackish, but of sufficient precision)."
-    (if (string-match "\\([0-9]+\\)px" px-value)
-        (let (result-string
-              (max-length 11))
-          (setq result-string
-                (number-to-string
-                 (/ (string-to-number (match-string 1 px-value)) 
-                    (float rembase))))
-          (concat
-           (if (> (length result-string) max-length)
-               (substring result-string 0 max-length)
-             result-string)
-           "rem"))
-          nil))
-
-
-  (defun ki/px-to-rem-at-point-killring ()
-    "Convert CSS px value at point to rem (base 14px), copying result to kill ring.
-  If there is a text selection (a phrase), use that."
-    (interactive)
-    (let (px-value)
-      (setq px-value
-            (if (region-active-p)
-                (buffer-substring-no-properties (region-beginning) (region-end))
-              (thing-at-point 'symbol)))
-      (kill-new (ki/px-to-rem px-value 14))))
 #+end_src
 
 ** Text transform
