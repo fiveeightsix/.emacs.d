@@ -666,7 +666,7 @@ Ace window
   (org-babel-do-load-languages
    (quote org-babel-load-languages)
    (quote ((emacs-lisp . t)
-           (sh . t)
+           (shell . t)
            (ditaa . t)
            (dot . t) ; Graphviz
            (python . t)
