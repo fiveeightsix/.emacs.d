@@ -86,7 +86,6 @@ User information
 * Global key bindings
 
 #+begin_src emacs-lisp
-  (global-set-key (kbd "<f8>") 'magit-status)
   (global-set-key (kbd "<M-up>") 'backward-paragraph)
   (global-set-key (kbd "<M-down>") 'forward-paragraph)
 #+end_src
@@ -159,12 +158,6 @@ Ace window
 * Completion (Ivy)
 
 #+begin_src emacs-lisp
-  ;; (require 'ido)
-  ;; (ido-mode 1)
-  ;; (setq ido-enable-flex-matching t)
-#+end_src
-
-#+begin_src emacs-lisp
   (use-package ivy
     :ensure t
     :diminish ivy-mode
@@ -194,8 +187,6 @@ Ace window
     (setq projectile-completion-system 'ivy)
     (setq projectile-switch-project-action 'projectile-dired))
 #+end_src
-
-   =projectile-keymap-prefix= needs to be set before the mode is actually loaded. Reference: https://github.com/bbatsov/projectile/issues/991.
 
 * Editing
 
@@ -629,38 +620,7 @@ Ace window
                  :publishing-function org-publish-attachment)
                 ("org"
                  :components ("org-org"
-                              "org-static"))
-                ("web.karlinglis.net-org"
-                 :base-directory "~/Projects/web.karlinglis.net/org"
-                 :base-extension "org"
-                 :recursive t
-                 :publishing-directory "~/Projects/village/www/web.karlinglis.net"
-                 :publishing-function org-html-publish-to-html
-                 :html-head-include-default-style nil
-                 :html-head-include-scripts nil)
-                ("web.karlinglis.net-static"
-                 :base-directory "~/Projects/web.karlinglis.net/org"
-                 :base-extension "css\\|js\\|png\\|jpg\\|pdf"
-                 :recursive t
-                 :publishing-directory "~/Projects/village/www/web.karlinglis.net"
-                 :publishing-function org-publish-attachment)
-                ("web.karlinglis.net"
-                 :components ("web.karlinglis.net-org"
-                              "web.karlinglis.net-static"))
-                ("start.karlinglis.net-org"
-                 :base-directory "~/Projects/start.karlinglis.net/org"
-                 :base-extension "org"
-                 :publishing-directory "~/Projects/start.karlinglis.net/html"
-                 :publishing-function org-html-publish-to-html)
-                ("start.karlinglis.net-static"
-                 :base-directory "~/Projects/start.karlinglis.net/static"
-                 :base-extension "css\\|js"
-                 :publishing-directory "~/Projects/start.karlinglis.net/html"
-                 :publishing-function org-publish-attachment)
-                ("start.karlinglis.net"
-                 :components ("start.karlinglis.net-org"
-                              "start.karlinglis.net-static")))))
-
+                              "org-static")))))
 
   (defun ki/org-html-format-drawer-function (name contents)
     "Override drawer formatting for HTML export."
