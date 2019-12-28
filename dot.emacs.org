@@ -337,7 +337,7 @@ Ace window
 #+end_src
 
 ** Python
-
+   
 #+begin_src emacs-lisp
   (setq python-shell-interpreter "python3")
   ;; Use jedi for autocomplete sources
@@ -378,6 +378,20 @@ Ace window
   (use-package toml-mode
     :ensure t
     :mode ("\\.toml\\'" . toml-mode))
+#+end_src
+
+* Ispell
+
+#+begin_src emacs-lisp
+  (defun ki/ispell-region-or-buffer (r-beg r-end)
+    "Call ispell-region or ispell-buffer depending on whether mark is set."
+    (interactive "r")
+    (if (and transient-mark-mode mark-active)
+        (ispell-region r-beg r-end)
+      (ispell-buffer)))
+
+  (use-package ispell
+    :bind ("<f7>" . ki/ispell-region-or-buffer))
 #+end_src
 
 * Org
@@ -764,20 +778,6 @@ Ace window
                                 (shell-quote-argument tex-start-commands))
                             " %f")
                     t "%r.pdf")))
-#+end_src
-
-* Ispell
-
-#+begin_src emacs-lisp
-  (defun ki/ispell-region-or-buffer (r-beg r-end)
-    "Call ispell-region or ispell-buffer depending on whether mark is set."
-    (interactive "r")
-    (if (and transient-mark-mode mark-active)
-        (ispell-region r-beg r-end)
-      (ispell-buffer)))
-
-  (global-set-key (kbd "<f7>") 'ki/ispell-region-or-buffer)
-
 #+end_src
 
 * Skeletons
