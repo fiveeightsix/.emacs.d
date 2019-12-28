@@ -128,6 +128,21 @@ Ace window
     :bind (("M-o" . ace-window)))
 #+end_src
 
+* Auto complete
+
+#+begin_src emacs-lisp
+  (use-package auto-complete
+    :ensure t
+    :config
+    (ac-config-default)
+    (setq ac-ignore-case nil)
+    (setq ac-use-menu-map t)
+    :bind (:map
+           ac-completing-map
+           ("<C-n>" . ac-next)
+           ("<C-p>" . ac-previous)))
+#+end_src
+
 * Completion (Ivy)
 
 #+begin_src emacs-lisp
@@ -160,19 +175,6 @@ Ace window
 #+end_src
 
    =projectile-keymap-prefix= needs to be set before the mode is actually loaded. Reference: https://github.com/bbatsov/projectile/issues/991.
-
-* Auto complete
-
-#+begin_src emacs-lisp
-  (require 'auto-complete-config)
-  (ac-config-default)
-
-  (setq ac-ignore-case nil)
-
-  (setq ac-use-menu-map t)
-  (define-key ac-completing-map (kbd "<C-n>") 'ac-next)
-  (define-key ac-completing-map (kbd "<C-p>") 'ac-previous)
-#+end_src
 
 * Flycheck
 
