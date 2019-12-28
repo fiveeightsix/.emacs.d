@@ -197,6 +197,24 @@ Ace window
 
    =projectile-keymap-prefix= needs to be set before the mode is actually loaded. Reference: https://github.com/bbatsov/projectile/issues/991.
 
+* Editing
+
+** editorconfig
+
+#+BEGIN_SRC emacs-lisp
+  (use-package editorconfig
+    :ensure t
+    :diminish editorconfig-mode
+    :config
+    (editorconfig-mode 1))
+#+END_SRC
+
+** paredit
+
+#+BEGIN_SRC emacs-lisp
+  (use-package paredit :ensure t)
+#+END_SRC
+
 * Flycheck
 
 #+begin_src emacs-lisp
@@ -208,16 +226,6 @@ Ace window
 #+end_src
 
 * Languages
-
-** editorconfig
-
-#+BEGIN_SRC emacs-lisp
-  (use-package editorconfig
-    :ensure t
-    :diminish editorconfig-mode
-    :config
-    (editorconfig-mode 1))
-#+END_SRC
 
 ** CSS/SCSS
 
@@ -332,9 +340,10 @@ Ace window
 
 ** Emacs lisp
    
-#+begin_src emacs-lisp
-  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs-lisp-mode
+    :hook (emacs-lisp-mode . paredit-mode))
+#+END_SRC
 
 ** Python
    
