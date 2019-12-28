@@ -278,11 +278,10 @@ Ace window
     :mode ("\\.html\\'"
            "\\.svg\\'")
     :config
-    (setq
-     web-mode-enable-css-colorization t
-     web-mode-enable-comment-keywords t
-     web-mode-enable-current-element-highlight t
-     web-mode-enable-current-column-highlight t)
+    (setq web-mode-enable-css-colorization t
+          web-mode-enable-comment-keywords t
+          web-mode-enable-current-element-highlight t
+          web-mode-enable-current-column-highlight t)
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
     (electric-pair-mode t)
     (subword-mode t))
@@ -334,9 +333,9 @@ Ace window
 #+begin_src emacs-lisp
   (setq python-shell-interpreter "python3")
   ;; Use jedi for autocomplete sources
-  (require 'jedi)
-  (add-to-list 'ac-sources 'ac-source-jedi-direct)
-  (add-hook 'python-mode-hook 'jedi:setup)
+  ;; (require 'jedi)
+  ;; (add-to-list 'ac-sources 'ac-source-jedi-direct)
+  ;; (add-hook 'python-mode-hook 'jedi:setup)
 #+end_src
 
 ** WebGL
