@@ -44,6 +44,7 @@
 
 #+BEGIN_SRC emacs-lisp
   (use-package color-theme-sanityinc-tomorrow
+    :ensure t
     :config
     (load-theme 'sanityinc-tomorrow-eighties t))
 #+END_SRC
@@ -65,7 +66,8 @@
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (use-package diminish)
+  (use-package diminish
+    :ensure t)
 #+END_SRC
 
 * Global key bindings
@@ -135,14 +137,14 @@
 * Projectile
    
 #+begin_src emacs-lisp
-    (use-package projectile
-      :ensure t
-      :init
-      (setq projectile-keymap-prefix (kbd "C-x p"))
-      :config
-      (projectile-global-mode)
-      (setq projectile-completion-system 'ivy)
-      (setq projectile-switch-project-action 'projectile-dired))
+  (use-package projectile
+    :ensure t
+    :bind-keymap
+    ("C-x p" . projectile-keymap-prefix)
+    :config
+    (projectile-global-mode)
+    (setq projectile-completion-system 'ivy)
+    (setq projectile-switch-project-action 'projectile-dired))
 #+end_src
 
    =projectile-keymap-prefix= needs to be set before the mode is actually loaded. Reference: https://github.com/bbatsov/projectile/issues/991.
