@@ -88,32 +88,44 @@
 
 * Buffers and windows
 
+  Use ibuffer.
+
 #+begin_src emacs-lisp
-  ;; Use ibuffer:
   (defalias 'list-buffers 'ibuffer)
+#+end_src
 
-  ;; Use Shift+arrow_keys to move cursor around split panes:
-  (windmove-default-keybindings)
+When using dired in split windows, make the default copy target
+the directory shown in the second window.
 
-  ;; When cursor is on edge, move to the other side, as in a toroidal space:
-  (setq windmove-wrap-around t)
-
-  ;; Buffer move
-  ;; Reference: http://www.emacswiki.org/cgi-bin/wiki/buffer-move.el
-  (require 'buffer-move)
-
-  (global-set-key (kbd "<C-S-up>")     'buf-move-up)
-  (global-set-key (kbd "<C-S-down>")   'buf-move-down)
-  (global-set-key (kbd "<C-S-left>")   'buf-move-left)
-  (global-set-key (kbd "<C-S-right>")  'buf-move-right)
-
-  ;; When using dired in split windows, make the default copy target
-  ;; the directory shown in the second window.
+#+begin_src emacs-lisp
   (setq dired-dwim-target t)
+#+end_src
 
-  ;; ace-window
-  (require 'ace-window)
-  (global-set-key (kbd "M-o") 'ace-window)
+Windmove
+
+#+begin_src emacs-lisp
+  (windmove-default-keybindings)
+  (setq windmove-wrap-around t)
+#+end_src
+
+Buffer move
+Reference: http://www.emacswiki.org/cgi-bin/wiki/buffer-move.el
+
+#+begin_src emacs-lisp
+  (use-package buffer-move
+    :ensure t
+    :bind (("<C-S-up>" . buf-move-up)
+           ("<C-S-down>" . buf-move-down)
+           ("<C-S-left>" . buf-move-left)
+           ("<C-S-right>" . buf-move-right)))
+#+end_src
+
+Ace window
+
+#+begin_src emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :bind (("M-o" . ace-window)))
 #+end_src
 
 * Completion (Ivy)
@@ -140,7 +152,7 @@
   (use-package projectile
     :ensure t
     :bind-keymap
-    ("C-x p" . projectile-keymap-prefix)
+    ("C-x p" . projectile-command-map)
     :config
     (projectile-global-mode)
     (setq projectile-completion-system 'ivy)
