@@ -212,6 +212,7 @@ Ace window
   (add-hook 'scss-mode-hook 'rainbow-mode)
 #+end_src
 
+
 ** Javascript
 
 #+begin_src emacs-lisp
@@ -253,11 +254,27 @@ Ace window
     ;; (setq web-mode-attr-indent-offset 4)
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 
-  (add-hook 'web-mode-hook 'ki/web-mode-setup)
-
   ;; eslint can check .jsx syntax - use this in web-mode
   (flycheck-add-mode 'javascript-eslint 'web-mode)
 #+end_src
+
+** HTML etc. (web mode)
+
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :mode ("\\.html\\'"
+           "\\.svg\\'")
+    :config
+    (setq
+     web-mode-enable-css-colorization t
+     web-mode-enable-comment-keywords t
+     web-mode-enable-current-element-highlight t
+     web-mode-enable-current-column-highlight t)
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
+    (electric-pair-mode t)
+    (subword-mode t))
+#+END_SRC
 
 ** Typescript
 
@@ -294,13 +311,6 @@ Ace window
   (add-hook 'web-mode-hook 'ki/set-up-tide-on-web-mode)
   (add-hook 'typescript-mode-hook 'ki/tide-mode-setup)
   (add-hook 'typescript-mode-hook (lambda () (subword-mode t)))
-#+end_src
-
-** HTML
-
-#+begin_src emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.svg\\'" . web-mode))
 #+end_src
 
 ** Scheme
