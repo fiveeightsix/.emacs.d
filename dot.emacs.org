@@ -175,20 +175,11 @@ Ace window
     :bind ("<f8>" . magit-status))
 #+END_SRC
 
-* Projectile
-   
-#+begin_src emacs-lisp
-  (use-package projectile
-    :ensure t
-    :bind-keymap
-    ("C-x p" . projectile-command-map)
-    :config
-    (projectile-global-mode)
-    (setq projectile-completion-system 'ivy)
-    (setq projectile-switch-project-action 'projectile-dired))
-#+end_src
+* Grep
 
-* Editing
+#+BEGIN_SRC emacs-lisp
+  (use-package ripgrep :ensure t)
+#+END_SRC
 
 ** editorconfig
 
@@ -205,6 +196,21 @@ Ace window
 #+BEGIN_SRC emacs-lisp
   (use-package paredit :ensure t)
 #+END_SRC
+
+* Projectile
+   
+#+begin_src emacs-lisp
+  (use-package projectile
+    :ensure t
+    :bind-keymap
+    ("C-x p" . projectile-command-map)
+    :config
+    (projectile-global-mode)
+    (setq projectile-completion-system 'ivy)
+    (setq projectile-switch-project-action 'projectile-dired))
+#+end_src
+
+* Editing
 
 * Flycheck
 
@@ -370,6 +376,11 @@ Ace window
   (use-package rust-mode
     :ensure t
     :mode ("\\.rs\\'" . rust-mode))
+
+  (use-package cargo
+    :ensure t
+    :diminish cargo-minor-mode
+    :hook (rust-mode . cargo-minor-mode))
 #+end_src
 
 ** TOML
