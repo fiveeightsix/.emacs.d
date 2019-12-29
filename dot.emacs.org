@@ -375,7 +375,9 @@ Ace window
 #+begin_src emacs-lisp
   (use-package rust-mode
     :ensure t
-    :mode ("\\.rs\\'" . rust-mode))
+    :mode ("\\.rs\\'" . rust-mode)
+    :config
+    (electric-pair-mode t))
 
   (use-package cargo
     :ensure t
