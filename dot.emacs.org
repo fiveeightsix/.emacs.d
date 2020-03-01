@@ -393,6 +393,23 @@ Ace window
     :mode ("\\.toml\\'" . toml-mode))
 #+end_src
 
+** F#
+
+#+begin_src emacs-lisp
+  (use-package fsharp-mode
+    :mode ("\\.fs\\'" . fsharp-mode))
+#+end_src
+
+** PHP
+
+#+begin_src emacs-lisp
+  (use-package php-mode
+    :mode ("\\.php\\'" . php-mode)
+    :config
+    (electric-pair-mode t))
+#+end_src
+
+
 * Ispell
 
 #+begin_src emacs-lisp
@@ -747,10 +764,16 @@ Ace window
 #+end_src
 
 * LaTeX
+
+These packages are needed for current setup.
+
+#+BEGIN_SRC sh :tangle no
+sudo apt install texlive texlive-xetex textlive-science texlive-pstricks
+#+END_SRC
    
-   Use xelatex to compile LaTeX files to PDF.
+Use xelatex to compile LaTeX files to PDF.
    
-   Reference: https://lists.gnu.org/archive/html/help-gnu-emacs/2013-01/msg00248.html
+Reference: https://lists.gnu.org/archive/html/help-gnu-emacs/2013-01/msg00248.html
 
 #+begin_src emacs-lisp
   (eval-after-load 'tex-mode
