@@ -409,6 +409,19 @@ Ace window
     (electric-pair-mode t))
 #+end_src
 
+** Markdown
+
+Requries:
+
+#+begin_src sh :tangle no
+  sudo apt install markdown
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :mode ("\\.md\\'" . markdown-mode)
+    :custom (markdown-command "markdown"))
+#+end_src
 
 * Ispell
 
