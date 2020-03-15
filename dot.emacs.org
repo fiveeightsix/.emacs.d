@@ -221,7 +221,12 @@ Ace window
     (rust-mode . eglot-ensure)
     :config
     (if (executable-find "rust-analyzer-linux")
-        (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer-linux"))))
+        (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer-linux"))
+      (message "Could not find `rust-analyzer-linx'")))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package eldoc :diminish eldoc-mode)
 #+end_src
 
 * Flycheck
