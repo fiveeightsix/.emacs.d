@@ -212,6 +212,18 @@ Ace window
     (setq projectile-switch-project-action 'projectile-dired))
 #+end_src
 
+* Language server
+
+#+begin_src emacs-lisp
+  (use-package eglot
+    :ensure t
+    :hook
+    (rust-mode . eglot-ensure)
+    :config
+    (if (executable-find "rust-analyzer-linux")
+        (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer-linux"))))
+#+end_src
+
 * Flycheck
 
 #+begin_src emacs-lisp
