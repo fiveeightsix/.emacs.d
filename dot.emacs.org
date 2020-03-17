@@ -320,6 +320,9 @@ Ace window
 ** TypeScript
 
 #+BEGIN_SRC emacs-lisp
+  (use-package subword-mode
+    :hook ((typescript-mode . subword-mode)))
+
   (defun ki/tide-mode-setup ()
     (tide-setup)
     (flycheck-mode +1)
@@ -330,7 +333,7 @@ Ace window
     :ensure t
     :config 
     (electric-pair-mode t)
-    (subword-mode t))
+    (subword-mode 1))
 
   (use-package tide
     :ensure t
