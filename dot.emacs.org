@@ -321,7 +321,8 @@ Ace window
 
 #+BEGIN_SRC emacs-lisp
   (use-package subword-mode
-    :hook ((typescript-mode . subword-mode)))
+    :hook ((typescript-mode . subword-mode)
+           (web-mode . subword-mode)))
 
   (defun ki/tide-mode-setup ()
     (tide-setup)
