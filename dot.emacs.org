@@ -339,10 +339,12 @@ Ace window
   (use-package tide
     :ensure t
     :after typescript-mode
+    :custom (tide-sync-request-timeout 5)
     :bind (:map typescript-mode-map
                 ("C-c C-t r" . tide-rename-symbol)
                 ("C-c C-t f" . tide-rename-file)
-                ("C-c C-t s" . tide-restart-server))
+                ("C-c C-t s" . tide-restart-server)
+                ("C-c C-t R" . tide-references))
     :hook ((typescript-mode . ki/tide-mode-setup)
            (typescript-mode . tide-hl-identifier-mode)))
 #+END_SRC
