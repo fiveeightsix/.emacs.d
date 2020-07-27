@@ -220,9 +220,9 @@ Ace window
     :hook
     (rust-mode . eglot-ensure)
     :config
-    (if (executable-find "rust-analyzer-linux")
-        (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer-linux"))
-      (message "Could not find `rust-analyzer-linx'")))
+    (if (executable-find "rust-analyzer")
+        (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer"))
+      (message "Could not find `rust-analyzer'")))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -434,7 +434,7 @@ Ace window
 
 ** Markdown
 
-Requries:
+Requires:
 
 #+begin_src sh :tangle no
   sudo apt install markdown
@@ -444,6 +444,12 @@ Requries:
   (use-package markdown-mode
     :mode ("\\.md\\'" . markdown-mode)
     :custom (markdown-command "markdown"))
+#+end_src
+
+** C#
+
+#+begin_src emacs-lisp
+
 #+end_src
 
 * Ispell
