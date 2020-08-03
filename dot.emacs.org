@@ -484,6 +484,12 @@ Requires:
     (electric-pair-mode t))
 #+end_src
 
+** PowerShell
+
+#+begin_src emacs-lisp
+  (use-package powershell)
+#+end_src
+
 * Ispell
 
 #+begin_src emacs-lisp
