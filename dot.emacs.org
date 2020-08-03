@@ -140,21 +140,6 @@ Ace window
     :bind (("M-o" . ace-window)))
 #+end_src
 
-* Auto complete
-
-#+begin_src emacs-lisp
-  (use-package auto-complete
-    :ensure t
-    :config
-    (ac-config-default)
-    (setq ac-ignore-case nil)
-    (setq ac-use-menu-map t)
-    :bind (:map
-           ac-completing-map
-           ("<C-n>" . ac-next)
-           ("<C-p>" . ac-previous)))
-#+end_src
-
 * Completion (Ivy)
 
 #+begin_src emacs-lisp
@@ -236,6 +221,27 @@ Ace window
     :custom
     (lsp-keymap-prefix "C-c C-l")
     (lsp-csharp-server-path "~/.opt/omnisharp/run"))
+#+end_src
+
+* Code auto-completion
+
+#+begin_src emacs-lisp
+  (use-package auto-complete
+    :ensure t
+    :config
+    (ac-config-default)
+    (setq ac-ignore-case nil)
+    (setq ac-use-menu-map t)
+    :bind (:map
+           ac-completing-map
+           ("<C-n>" . ac-next)
+           ("<C-p>" . ac-previous)))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package company
+    :ensure t
+    :diminish company-mode)
 #+end_src
 
 * Flycheck
@@ -458,7 +464,10 @@ Requires:
 ** C#
 
 #+begin_src emacs-lisp
-
+  (use-package csharp-mode
+    :config
+    (electric-pair-mode t)
+    (subword-mode t))
 #+end_src
 
 * Ispell
