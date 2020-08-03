@@ -178,6 +178,14 @@ Ace window
   (use-package paredit :ensure t)
 #+END_SRC
 
+** subword-mode
+
+#+begin_src emacs-lisp
+  (use-package subword
+    :diminish subword-mode
+    :config (global-subword-mode))
+#+end_src
+
 * Grep
 
 #+BEGIN_SRC emacs-lisp
@@ -303,7 +311,6 @@ Ace window
   (defun ki/web-mode-setup ()
     "Set options for web-mode."
     (electric-pair-mode t)
-    (subword-mode t)
     (setq web-mode-enable-css-colorization t)
     (setq web-mode-enable-comment-keywords t)
     (setq web-mode-enable-current-element-highlight t)
@@ -328,17 +335,12 @@ Ace window
           web-mode-enable-current-element-highlight t
           web-mode-enable-current-column-highlight t)
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
-    (electric-pair-mode t)
-    (subword-mode t))
+    (electric-pair-mode t))
 #+END_SRC
 
 ** TypeScript
 
 #+BEGIN_SRC emacs-lisp
-  (use-package subword-mode
-    :hook ((typescript-mode . subword-mode)
-           (web-mode . subword-mode)))
-
   (defun ki/tide-mode-setup ()
     (tide-setup)
     (flycheck-mode +1)
@@ -348,8 +350,7 @@ Ace window
   (use-package typescript-mode
     :ensure t
     :config 
-    (electric-pair-mode t)
-    (subword-mode 1))
+    (electric-pair-mode t))
 
   (use-package tide
     :ensure t
@@ -466,8 +467,7 @@ Requires:
 #+begin_src emacs-lisp
   (use-package csharp-mode
     :config
-    (electric-pair-mode t)
-    (subword-mode t))
+    (electric-pair-mode t))
 #+end_src
 
 * Ispell
