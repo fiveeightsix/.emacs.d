@@ -229,6 +229,15 @@ Ace window
   (use-package eldoc :diminish eldoc-mode)
 #+end_src
 
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :hook ((csharp-mode . lsp))
+    :commands (lsp)
+    :custom
+    (lsp-keymap-prefix "C-c C-l")
+    (lsp-csharp-server-path "~/.opt/omnisharp/run"))
+#+end_src
+
 * Flycheck
 
 #+begin_src emacs-lisp
