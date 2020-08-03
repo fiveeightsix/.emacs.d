@@ -222,16 +222,20 @@ Ace window
   (use-package eldoc :diminish eldoc-mode)
 #+end_src
 
+LSP mode seems to work better with omnisharp, so we'll try both.
+
 #+begin_src emacs-lisp
   (use-package lsp-mode
     :hook ((csharp-mode . lsp))
     :commands (lsp)
     :custom
     (lsp-keymap-prefix "C-c C-l")
+    (lsp-completion-enable t)
+    (lsp-eldoc-render-all nil)
     (lsp-csharp-server-path "~/.opt/omnisharp/run"))
 #+end_src
 
-* Code auto-completion
+* Code completion
 
 #+begin_src emacs-lisp
   (use-package auto-complete
@@ -249,7 +253,16 @@ Ace window
 #+begin_src emacs-lisp
   (use-package company
     :ensure t
-    :diminish company-mode)
+    :diminish company-mode
+    :bind (:map company-active-map
+                (("C-n" . company-select-next)
+                 ("C-p" . company-select-previous)
+                 ("<tab>" . company-complete-selection)
+                 ("TAB" . company-complete-selection)))
+    :custom
+    (company-idle-delay 0)
+    (company-minimum-prefix-length 3)
+    (company-selection-wrap-around t))
 #+end_src
 
 * Flycheck
@@ -378,7 +391,8 @@ Ace window
    
 #+BEGIN_SRC emacs-lisp
   (use-package emacs-lisp-mode
-    :hook (emacs-lisp-mode . paredit-mode))
+    :hook ((emacs-lisp-mode . paredit-mode)
+           (emacs-lisp-mode . company-mode)))
 #+END_SRC
 
 ** Python
