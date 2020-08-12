@@ -63,7 +63,7 @@ User information
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (set-default-font "DejaVu Sans Mono Book 14")
+  ;;(set-defau-lt-font "DejaVu Sans Mono Book 14")
 #+END_SRC
 
 * Mode line
@@ -231,8 +231,8 @@ LSP mode seems to work better with omnisharp, so we'll try both.
     :custom
     (lsp-keymap-prefix "C-c C-l")
     (lsp-completion-enable t)
-    (lsp-eldoc-render-all nil)
-    (lsp-csharp-server-path "~/.opt/omnisharp/run"))
+    (lsp-enable-snippet nil)
+    (lsp-eldoc-render-all nil))
 #+end_src
 
 * Code completion
