@@ -490,6 +490,17 @@ Requires:
   (use-package powershell)
 #+end_src
 
+** SQL
+
+#+begin_src emacs-lisp
+  (use-package sql-indent
+    :ensure t
+    :diminish sqlind-minor-mode
+    :hook (sql-mode . sqlind-minor-mode)
+    :config
+    (setq sqlind-basic-offset 4))
+#+end_src
+
 * Ispell
 
 #+begin_src emacs-lisp
