@@ -501,6 +501,15 @@ Requires:
     (setq sqlind-basic-offset 4))
 #+end_src
 
+#+begin_src emacs-lisp
+  (use-package sqlup-mode
+    :ensure t
+    :diminish sqlup-mode
+    :hook (sql-mode . sqlup-mode)
+    :config
+    (add-to-list 'sqlup-blacklist "name"))
+#+end_src
+
 * Ispell
 
 #+begin_src emacs-lisp
