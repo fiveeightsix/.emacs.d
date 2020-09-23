@@ -63,7 +63,7 @@ User information
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  ;;(set-defau-lt-font "DejaVu Sans Mono Book 14")
+  (set-frame-font "DejaVu Sans Mono Book 14")
 #+END_SRC
 
 * Mode line
