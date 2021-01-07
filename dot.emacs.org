@@ -341,7 +341,8 @@ LSP mode seems to work better with omnisharp, so we'll try both.
   (use-package web-mode
     :ensure t
     :mode ("\\.html\\'"
-           "\\.svg\\'")
+           "\\.svg\\'"
+           "\\.php\\'")
     :config
     (setq web-mode-enable-css-colorization t
           web-mode-enable-comment-keywords t
@@ -511,7 +512,7 @@ Requires:
 #+end_src
 
 ** YAML
-
+   
 #+begin_src emacs-lisp
   (use-package yaml-mode
     :ensure t
