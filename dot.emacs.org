@@ -510,6 +510,14 @@ Requires:
     (add-to-list 'sqlup-blacklist "name"))
 #+end_src
 
+** YAML
+
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    :mode ("\\.yaml\\'" "\\.yml\\'"))
+#+end_src
+
 * Ispell
 
 #+begin_src emacs-lisp
