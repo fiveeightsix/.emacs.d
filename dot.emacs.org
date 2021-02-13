@@ -1,5 +1,13 @@
 #+TITLE: Emacs configuration
 
+* Preliminaries
+
+  Lexical scoping for Emacs LISP. Needs to be first thing in the file.
+
+  #+begin_src emacs-lisp
+    (setq lexical-binding t)
+  #+end_src
+  
 * Custom settings
   
   Load these from a separate file. 
@@ -11,26 +19,25 @@
 
 * Interface and behaviour
 
-Built-in modes
-
-#+BEGIN_SRC emacs-lisp
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (delete-selection-mode t)   ;; Delete/type over selection
-#+END_SRC
-
 Sensible defaults
 
 #+BEGIN_SRC emacs-lisp
-   (put 'downcase-region 'disabled nil)
-   (put 'upcase-region 'disabled nil)
-   (fset 'yes-or-no-p 'y-or-n-p)
+  (setq
+   inhibit-startup-screen t
+   initial-scratch-message nil
+   tramp-default-method "ssh")
 
-   (setq-default indent-tabs-mode nil)
-   (setq
-    tramp-default-method "ssh"
-    set-mark-command-repeat-pop t)   ;; Slightly faster pop-to-mark command
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (delete-selection-mode t)   ;; Delete/type over selection
+  (put 'downcase-region 'disabled nil)
+  (put 'upcase-region 'disabled nil)
 #+END_SRC
+
+Always spaces, not tabs!
+
+#+begin_src emacs-lisp
+  (setq-default indent-tabs-mode nil)
+#+end_src
 
    Keep auto-generated backup files on one place.
 
@@ -52,6 +59,14 @@ User information
 #+BEGIN_SRC emacs-lisp
   (setq user-mail-address "mail@karlinglis.net")
 #+END_SRC
+
+Unwanted GUI elements
+
+#+begin_src emacs-lisp
+  (when (window-system)
+    (scroll-bar-mode -1)
+    (tool-bar-mode -1))
+#+end_src
 
 * Appearence
 
