@@ -227,6 +227,8 @@ Ace window
     :ensure t
     :hook
     (rust-mode . eglot-ensure)
+    :custom
+    (rust-indent-where-clause t)
     :config
     (if (executable-find "rust-analyzer-x86_64-unknown-linux-gnu")
         (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer-x86_64-unknown-linux-gnu"))
