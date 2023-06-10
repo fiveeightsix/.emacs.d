@@ -20,7 +20,7 @@
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(package-selected-packages
    (quote
-    (eglot use-package sqlup-mode sql-indent powershell company lsp-mode csharp-mode yaml-mode web-mode fsharp-mode ripgrep cargo delight rust-mode toml-mode org-present editorconfig auto-complete org-tree-slide ox-gfm plantuml-mode rjsx-mode csv-mode diminish powerline counsel ivy flatland-theme color-theme-sanityinc-tomorrow scad-mode tide spacemacs-theme s markdown-mode projectile ssass-mode js2-refactor js2-mode ace-window geiser magit queue php-mode paredit org lorem-ipsum json-mode jinja2-mode jedi graphviz-dot-mode gnuplot-mode gnuplot glsl-mode flymake-jslint flymake-css flycheck crontab-mode buffer-move backtrace-mode apache-mode)))
+    (eglot use-package sqlup-mode sql-indent powershell company lsp-mode csharp-mode web-mode fsharp-mode ripgrep cargo delight rust-mode toml-mode org-present editorconfig auto-complete org-tree-slide ox-gfm plantuml-mode rjsx-mode csv-mode diminish counsel ivy flatland-theme color-theme-sanityinc-tomorrow scad-mode spacemacs-theme s markdown-mode projectile ssass-mode js2-refactor js2-mode ace-window geiser magit queue php-mode paredit org lorem-ipsum json-mode jinja2-mode jedi graphviz-dot-mode gnuplot-mode gnuplot glsl-mode flymake-jslint flymake-css flycheck crontab-mode buffer-move backtrace-mode apache-mode)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(reb-auto-match-limit 2000)
  '(rng-schema-locating-files
