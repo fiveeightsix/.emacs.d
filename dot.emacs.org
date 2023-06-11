@@ -290,16 +290,33 @@ LSP mode seems to work better with omnisharp, so we'll try both.
 ** CSS/SCSS
 
 #+begin_src emacs-lisp
-  ;; Use rainbow mode
-  (add-hook 'css-mode-hook 'rainbow-mode)
+  (use-package css-mode
+    :mode ("\\.css\\'" "\\.scss\\'" "\\.sass\\'")
+    :hook ((css-mode-hook . ki/enable-flycheck-for-mode)))
 
-  ;; Enable flycheck
-  (add-hook 'css-mode-hook 'ki/enable-flycheck-for-mode)
-
-  ;; SCSS
-  (add-hook 'scss-mode-hook 'ki/enable-flycheck-for-mode)
-  (add-hook 'scss-mode-hook 'rainbow-mode)
+  (use-package rainbow-mode
+    :ensure t
+    :diminish rainbow-mode
+    :hook ((css-mode-hook . rainbow-mode)
+           (css-mode-hook . company-mode)))
 #+end_src
+
+** HTML etc. (web mode)
+
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :mode ("\\.html\\'"
+           "\\.svg\\'"
+           "\\.php\\'")
+    :config
+    (setq web-mode-enable-css-colorization t
+          web-mode-enable-comment-keywords t
+          web-mode-enable-current-element-highlight t
+          web-mode-enable-current-column-highlight t)
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
+    (electric-pair-mode t))
+#+END_SRC
 
 ** Javascript
 
@@ -344,23 +361,6 @@ LSP mode seems to work better with omnisharp, so we'll try both.
   ;; eslint can check .jsx syntax - use this in web-mode
   (flycheck-add-mode 'javascript-eslint 'web-mode)
 #+end_src
-
-** HTML etc. (web mode)
-
-#+BEGIN_SRC emacs-lisp
-  (use-package web-mode
-    :ensure t
-    :mode ("\\.html\\'"
-           "\\.svg\\'"
-           "\\.php\\'")
-    :config
-    (setq web-mode-enable-css-colorization t
-          web-mode-enable-comment-keywords t
-          web-mode-enable-current-element-highlight t
-          web-mode-enable-current-column-highlight t)
-    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
-    (electric-pair-mode t))
-#+END_SRC
 
 ** TypeScript
 
