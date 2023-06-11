@@ -47,13 +47,6 @@ Always spaces, not tabs!
   (setq backup-directory-alist '(("" . "~/.emacs.d/backup-files")))
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-  ;; Auto-revert for buffers
-  ;; Reference: http://pragmaticemacs.com/emacs/automatically-revert-buffers/
-  ;; (global-auto-revert-mode 1)
-  ;; (setq global-auto-revert-non-file-buffers t)
-#+END_SRC
-
 User information
    
 #+BEGIN_SRC emacs-lisp
