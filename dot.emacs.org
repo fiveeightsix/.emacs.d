@@ -365,20 +365,21 @@ LSP mode seems to work better with omnisharp, so we'll try both.
 ** TypeScript
 
 #+BEGIN_SRC emacs-lisp
+  (use-package typescript-mode
+    :ensure t
+    :hook ((typescript-mode . company-mode))
+    :config 
+    (electric-pair-mode t))
+
   (defun ki/tide-mode-setup ()
     (tide-setup)
     (flycheck-mode +1)
     (setq flycheck-check-syntax-automatically '(save mode-enabled idle-change))
     (eldoc-mode +1))
 
-  (use-package typescript-mode
-    :ensure t
-    :config 
-    (electric-pair-mode t))
-
   (use-package tide
     :ensure t
-    :after typescript-mode
+    :after (typescript-mode company)
     :custom (tide-sync-request-timeout 5)
     :bind (:map typescript-mode-map
                 ("C-c C-t r" . tide-rename-symbol)
