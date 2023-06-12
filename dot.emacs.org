@@ -490,15 +490,15 @@ Requires:
 ** C#
 
 #+begin_src emacs-lisp
-  (use-package csharp-mode
-    :config
-    (electric-pair-mode t))
+  ;; (use-package csharp-mode
+  ;;   :config
+  ;;   (electric-pair-mode t))
 #+end_src
 
 ** PowerShell
 
 #+begin_src emacs-lisp
-  (use-package powershell)
+  (use-package powershell :ensure t)
 #+end_src
 
 ** SQL
