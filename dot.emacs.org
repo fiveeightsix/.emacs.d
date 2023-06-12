@@ -1017,56 +1017,6 @@ Reference: https://lists.gnu.org/archive/html/help-gnu-emacs/2013-01/msg00248.ht
     "#+END_SRC\n")
 #+end_src
 
-** Angular
-
-*** NgRx action
-
-#+begin_src emacs-lisp
-  (define-skeleton skel-ng-action-class
-    "Insert ngrx action class, promting for name and type."
-    nil
-    '(setq types (skeleton-read "...ActionTypes (space-separated words): "))
-    '(setq name (skeleton-read "Action class name (space-separated words): "))
-    "export class " (s-upper-camel-case name) " implements Action {\n"
-    > "readonly type = " (s-upper-camel-case types) "ActionTypes." (s-upper-camel-case name) ";\n"
-    > "constructor(public payload: any" _ ") { }\n"
-    "}\n")
-#+end_src
-
-*** NgRx reducer
-
-#+begin_src emacs-lisp
-  (define-skeleton skel-ng-reducer
-    "Insert NgRx reducer skeleton"
-    nil
-    "export interface State {\n}\n\n"
-    "export const initialState: State = {\n}\n\n"
-    "export function reducer(state = initialState, action: ActionsUnion): State {\n"
-    > "switch (action.type) {\n"
-    > "default:\n"
-    > "return state;\n"
-    > "}\n"
-    "}")
-#+end_src
-
-** Wordpress
-
-#+begin_src emacs-lisp
-  (define-skeleton skel-wp-plugin
-    "Insert basic plugin file skeleton, querying for name and description."
-    nil
-    "<?php\n"
-    "/**\n"
-    " * Plugin Name: " (setq name (skeleton-read "Plugin name: ")) "\n"
-    " * Description: " (setq description (skeleton-read "Plugin description: ")) "\n"
-    " * Author: Karl Inglis\n"
-    " * Author URI: http://web.karlinglis.net\n"
-    " * Version: 1.0.0\n"
-    "*/\n\n"
-    _"\n\n"
-    "?>")
-#+end_src
-
 ** LaTeX
 
 #+begin_src emacs-lisp
