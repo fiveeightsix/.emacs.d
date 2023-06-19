@@ -292,13 +292,13 @@ LSP mode seems to work better with omnisharp, so we'll try both.
 #+begin_src emacs-lisp
   (use-package css-mode
     :mode ("\\.css\\'" "\\.scss\\'" "\\.sass\\'")
-    :hook ((css-mode-hook . ki/enable-flycheck-for-mode)))
+    :hook ((css-mode-hook . ki/enable-flycheck-for-mode)
+           (css-mode-hook . company-mode)))
 
   (use-package rainbow-mode
     :ensure t
     :diminish rainbow-mode
-    :hook ((css-mode-hook . rainbow-mode)
-           (css-mode-hook . company-mode)))
+    :hook ((css-mode-hook . rainbow-mode)))
 #+end_src
 
 ** HTML etc. (web mode)
