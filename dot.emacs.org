@@ -346,18 +346,6 @@ LSP mode seems to work better with omnisharp, so we'll try both.
 
   (add-hook 'js2-mode-hook 'ki/js2-mode-setup)
 
-  ;; Web mode
-
-  (defun ki/web-mode-setup ()
-    "Set options for web-mode."
-    (electric-pair-mode t)
-    (setq web-mode-enable-css-colorization t)
-    (setq web-mode-enable-comment-keywords t)
-    (setq web-mode-enable-current-element-highlight t)
-    (setq web-mode-enable-current-column-highlight t)
-    ;; (setq web-mode-attr-indent-offset 4)
-    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
-
   ;; eslint can check .jsx syntax - use this in web-mode
   (flycheck-add-mode 'javascript-eslint 'web-mode)
 #+end_src
@@ -375,7 +363,8 @@ LSP mode seems to work better with omnisharp, so we'll try both.
     (tide-setup)
     (flycheck-mode +1)
     (setq flycheck-check-syntax-automatically '(save mode-enabled idle-change))
-    (eldoc-mode +1))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1))
 
   (use-package tide
     :ensure t
@@ -386,8 +375,13 @@ LSP mode seems to work better with omnisharp, so we'll try both.
                 ("C-c C-t f" . tide-rename-file)
                 ("C-c C-t s" . tide-restart-server)
                 ("C-c C-t R" . tide-references))
-    :hook ((typescript-mode . ki/tide-mode-setup)
-           (typescript-mode . tide-hl-identifier-mode)))
+    :hook ((typescript-mode . ki/tide-mode-setup)))
+
+  (add-to-list 'auto-mode-alist '("\\tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                (ki/tide-mode-setup))))
 #+END_SRC
 
 ** Scheme
