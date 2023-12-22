@@ -309,6 +309,7 @@ LSP mode seems to work better with omnisharp, so we'll try both.
     :mode ("\\.html\\'"
            "\\.svg\\'"
            "\\.php\\'")
+    :hook (web-mode . company-mode)
     :config
     (setq web-mode-enable-css-colorization t
           web-mode-enable-comment-keywords t
