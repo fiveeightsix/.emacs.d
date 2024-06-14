@@ -455,9 +455,18 @@ LSP mode seems to work better with omnisharp, so we'll try both.
 
 ** F#
 
+Reference: https://arialdomartini.github.io/emacs-fsharp
+
 #+begin_src emacs-lisp
   (use-package fsharp-mode
-    :mode ("\\.fs\\'" . fsharp-mode))
+    :defer t
+    :ensure t)
+
+  (use-package eglot-fsharp
+    :ensure t
+    :after fsharp-mode
+    :config
+    (setq eglot-fsharp-server-install-dir nil))
 #+end_src
 
 ** PHP
