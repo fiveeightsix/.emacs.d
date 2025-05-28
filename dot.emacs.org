@@ -56,9 +56,8 @@ User information
 Unwanted GUI elements
 
 #+begin_src emacs-lisp
-  (when (window-system)
-    (scroll-bar-mode -1)
-    (tool-bar-mode -1))
+  (scroll-bar-mode nil)
+  (tool-bar-mode nil)
 #+end_src
 
 * Appearence
@@ -218,6 +217,9 @@ Ace window
 #+begin_src emacs-lisp
   (use-package eglot
     :ensure t
+    :bind
+    (:map eglot-mode-map
+          ("C-c e r" . eglot-rename))
     :hook
     (rust-mode . eglot-ensure)
     :custom
@@ -225,24 +227,35 @@ Ace window
     :config
     (if (executable-find "rust-analyzer-x86_64-unknown-linux-gnu")
         (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer-x86_64-unknown-linux-gnu"))
-      (message "Could not find `rust-analyzer'")))
+      (message "Could not find `rust-analyzer'"))
+
+    (defclass eglot-deno (eglot-lsp-server) ()
+      :documentation "A custom class for deno lsp.")
+
+    (cl-defmethod eglot-initialization-options ((server eglot-deno))
+      "Passes through required deno initialization options"
+      (list :enable t
+            :lint t))
+
+    (add-to-list 'eglot-server-programs '((js-mode typescript-mode) . (eglot-deno "deno" "lsp"))))
 #+end_src
 
 #+begin_src emacs-lisp
   (use-package eldoc :diminish eldoc-mode)
 #+end_src
 
-LSP mode seems to work better with omnisharp, so we'll try both.
++LSP mode seems to work better with omnisharp, so we'll try both.+ No need for omnisharp right now
+so we'll stick with eglot.
 
 #+begin_src emacs-lisp
-  (use-package lsp-mode
-    :hook ((csharp-mode . lsp))
-    :commands (lsp)
-    :custom
-    (lsp-keymap-prefix "C-c C-l")
-    (lsp-completion-enable t)
-    (lsp-enable-snippet nil)
-    (lsp-eldoc-render-all nil))
+  ;; (use-package lsp-mode
+  ;;   :hook ((csharp-mode . lsp))
+  ;;   :commands (lsp)
+  ;;   :custom
+  ;;   (lsp-keymap-prefix "C-c C-l")
+  ;;   (lsp-completion-enable t)
+  ;;   (lsp-enable-snippet nil)
+  ;;   (lsp-eldoc-render-all nil))
 #+end_src
 
 * Code completion
@@ -367,22 +380,22 @@ LSP mode seems to work better with omnisharp, so we'll try both.
     (eldoc-mode +1)
     (tide-hl-identifier-mode +1))
 
-  (use-package tide
-    :ensure t
-    :after (typescript-mode company)
-    :custom (tide-sync-request-timeout 5)
-    :bind (:map typescript-mode-map
-                ("C-c C-t r" . tide-rename-symbol)
-                ("C-c C-t f" . tide-rename-file)
-                ("C-c C-t s" . tide-restart-server)
-                ("C-c C-t R" . tide-references))
-    :hook ((typescript-mode . ki/tide-mode-setup)))
+  ;; (use-package tide
+  ;;   :ensure t
+  ;;   :after (typescript-mode company)
+  ;;   :custom (tide-sync-request-timeout 5)
+  ;;   :bind (:map typescript-mode-map
+  ;;               ("C-c C-t r" . tide-rename-symbol)
+  ;;               ("C-c C-t f" . tide-rename-file)
+  ;;               ("C-c C-t s" . tide-restart-server)
+  ;;               ("C-c C-t R" . tide-references))
+  ;;   :hook ((typescript-mode . ki/tide-mode-setup)))
 
-  (add-to-list 'auto-mode-alist '("\\tsx\\'" . web-mode))
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                (ki/tide-mode-setup))))
+  ;; (add-to-list 'auto-mode-alist '("\\tsx\\'" . web-mode))
+  ;; (add-hook 'web-mode-hook
+  ;;           (lambda ()
+  ;;             (when (string-equal "tsx" (file-name-extension buffer-file-name))
+  ;;               (ki/tide-mode-setup))))
 #+END_SRC
 
 ** Scheme
