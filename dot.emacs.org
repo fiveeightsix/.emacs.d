@@ -17,6 +17,21 @@
 (load custom-file)
 #+end_src
 
+* Path
+
+Add the shell path so Emacs can find any utilities it may need.
+
+#+begin_src emacs-lisp
+  (use-package exec-path-from-shell
+    :ensure t
+    :init (exec-path-from-shell-initialize)
+    :config
+    (setq exec-path-from-shell-variables '("PATH")))
+#+end_src
+
+Reference:
+- https://github.com/guilhermecomum/emacs.d/blob/main/readme.org#path
+
 * Interface and behaviour
 
 Sensible defaults
@@ -222,7 +237,7 @@ Specific version branch tags are important, as it seems that the Emacs and parse
   (setq treesit-language-source-alist
         '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "typescript/src")
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "tsx/src")
-          (rust "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.0")))
+          (rust "https://github.com/tree-sitter/tree-sitter-rust" "v0.23.0")))
 #+end_src
 
 Reference:
@@ -235,9 +250,13 @@ Reference:
     :ensure t
     :bind
     (:map eglot-mode-map
-          ("C-c e r" . eglot-rename))
+          ("C-c e ." . eglot-code-actions)
+          ("C-c e r" . eglot-rename)
+          ("C-c e f" . eglot-format))
     :hook
     (rust-ts-mode . eglot-ensure)
+    (typescript-ts-mode . eglot-ensure)
+    (tsx-ts-mode . eglot-ensure)
     :custom
     (rust-indent-where-clause t)
     :config
@@ -253,27 +272,23 @@ Reference:
       (list :enable t
             :lint t))
 
+    (defun ecma-server-program (_)
+      "Decide which server to use for ECMA Script based on project files."
+      (cond ((deno-project-p) '(eglot-deno "deno" "lsp"))
+            ((node-project-p) '("typescript-language-server" "--stdio"))
+            (t nil)))
+
     (add-to-list 'eglot-server-programs
                  '((js-mode (typescript-ts-base-mode :language-id "typescript"))
-                   . (eglot-deno "deno" "lsp"))))
+                   . ecma-server-program)))
 #+end_src
+
+Reference for Deno/Node setup:
+- https://github.com/guilhermecomum/emacs.d/blob/main/readme.org#eglot
+- https://www.reddit.com/r/emacs/comments/zqvozu/deno_and_node_setup/
 
 #+begin_src emacs-lisp
   (use-package eldoc :diminish eldoc-mode)
-#+end_src
-
-+LSP mode seems to work better with omnisharp, so we'll try both.+ No need for omnisharp right now
-so we'll stick with eglot.
-
-#+begin_src emacs-lisp
-  ;; (use-package lsp-mode
-  ;;   :hook ((csharp-mode . lsp))
-  ;;   :commands (lsp)
-  ;;   :custom
-  ;;   (lsp-keymap-prefix "C-c C-l")
-  ;;   (lsp-completion-enable t)
-  ;;   (lsp-enable-snippet nil)
-  ;;   (lsp-eldoc-render-all nil))
 #+end_src
 
 * Code completion
@@ -387,11 +402,17 @@ so we'll stick with eglot.
 #+BEGIN_SRC emacs-lisp
   (use-package typescript-ts-mode
     :ensure t
+    :ensure-system-package (typescript-language-server . "npm i -g typescript-language-server")
     :mode (("\\.ts\\'" . typescript-ts-mode)
            ("\\.tsx\\'" . tsx-ts-mode))
     :hook ((typescript-ts-mode . company-mode))
     :config 
     (electric-pair-mode t))
+
+  (defun node-project-p ()
+    "Predicate for determining if the open project is a Node one."
+    (let ((p-root (cdr (project-current))))
+      (file-exists-p (concat p-root "package.json"))))
 
   (defun ki/tide-mode-setup ()
     (tide-setup)
@@ -417,6 +438,15 @@ so we'll stick with eglot.
   ;;             (when (string-equal "tsx" (file-name-extension buffer-file-name))
   ;;               (ki/tide-mode-setup))))
 #+END_SRC
+
+** Deno
+
+#+begin_src emacs-lisp
+  (defun deno-project-p ()
+    "Predicate for determining if the open project is a Deno one."
+    (let ((p-root (cdr (project-current))))
+      (file-exists-p (concat p-root "deno.json"))))
+#+end_src
 
 ** Scheme
 
