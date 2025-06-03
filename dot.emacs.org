@@ -212,6 +212,22 @@ Ace window
     (setq projectile-switch-project-action 'projectile-dired))
 #+end_src
 
+* Tree sitter
+
+Define sources for the tree sitter grammars we would want to install with =treesit-install-language-grammar=.
+
+Specific version branch tags are important, as it seems that the Emacs and parser builds drift out of compatibility over time.  
+
+#+begin_src emacs-lisp
+  (setq treesit-language-source-alist
+        '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "typescript/src")
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "tsx/src")
+          (rust "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.0")))
+#+end_src
+
+Reference:
+- https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
+
 * Language server
 
 #+begin_src emacs-lisp
@@ -221,12 +237,12 @@ Ace window
     (:map eglot-mode-map
           ("C-c e r" . eglot-rename))
     :hook
-    (rust-mode . eglot-ensure)
+    (rust-ts-mode . eglot-ensure)
     :custom
     (rust-indent-where-clause t)
     :config
     (if (executable-find "rust-analyzer-x86_64-unknown-linux-gnu")
-        (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer-x86_64-unknown-linux-gnu"))
+        (add-to-list 'eglot-server-programs '(rust-ts-mode "rust-analyzer-x86_64-unknown-linux-gnu"))
       (message "Could not find `rust-analyzer'"))
 
     (defclass eglot-deno (eglot-lsp-server) ()
@@ -237,7 +253,9 @@ Ace window
       (list :enable t
             :lint t))
 
-    (add-to-list 'eglot-server-programs '((js-mode typescript-mode) . (eglot-deno "deno" "lsp"))))
+    (add-to-list 'eglot-server-programs
+                 '((js-mode (typescript-ts-base-mode :language-id "typescript"))
+                   . (eglot-deno "deno" "lsp"))))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -335,41 +353,43 @@ so we'll stick with eglot.
 ** Javascript
 
 #+begin_src emacs-lisp
-  ;; Stop flycheck using jshint
-  (setq-default flycheck-disabled-checkers
-                (append flycheck-disabled-checkers
-                        '(javascript-jshint)))
+  ;; ;; Stop flycheck using jshint
+  ;; (setq-default flycheck-disabled-checkers
+  ;;               (append flycheck-disabled-checkers
+  ;;                       '(javascript-jshint)))
 
-  ;; Use js2-mode on .js files
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  (add-to-list 'auto-mode-alist '("\\.mjs\\'" . js2-mode))
+  ;; ;; Use js2-mode on .js files
+  ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.mjs\\'" . js2-mode))
 
-  ;; Detect jsx usage in react files
-  (add-to-list 'magic-mode-alist '("import.*react" . rjsx-mode))
+  ;; ;; Detect jsx usage in react files
+  ;; (add-to-list 'magic-mode-alist '("import.*react" . rjsx-mode))
 
-  (defun ki/js2-mode-setup ()
-    "Set options for js2-mode."
-    (setq-default js2-global-externs '("module" "require"))
-    (setq-default js2-basic-offset 2)
-    (setq-default js2-mode-show-parse-errors nil)  ; Leave to flycheck
-    ;; Use flycheck and eslint
-    (flycheck-mode t)
-    (when (executable-find "eslint")
-      (flycheck-select-checker 'javascript-eslint))
-    (js2r-add-keybindings-with-prefix "C-c C-m"))
+  ;; (defun ki/js2-mode-setup ()
+  ;;   "Set options for js2-mode."
+  ;;   (setq-default js2-global-externs '("module" "require"))
+  ;;   (setq-default js2-basic-offset 2)
+  ;;   (setq-default js2-mode-show-parse-errors nil)  ; Leave to flycheck
+  ;;   ;; Use flycheck and eslint
+  ;;   (flycheck-mode t)
+  ;;   (when (executable-find "eslint")
+  ;;     (flycheck-select-checker 'javascript-eslint))
+  ;;   (js2r-add-keybindings-with-prefix "C-c C-m"))
 
-  (add-hook 'js2-mode-hook 'ki/js2-mode-setup)
+  ;; (add-hook 'js2-mode-hook 'ki/js2-mode-setup)
 
-  ;; eslint can check .jsx syntax - use this in web-mode
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; ;; eslint can check .jsx syntax - use this in web-mode
+  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
 #+end_src
 
 ** TypeScript
 
 #+BEGIN_SRC emacs-lisp
-  (use-package typescript-mode
+  (use-package typescript-ts-mode
     :ensure t
-    :hook ((typescript-mode . company-mode))
+    :mode (("\\.ts\\'" . typescript-ts-mode)
+           ("\\.tsx\\'" . tsx-ts-mode))
+    :hook ((typescript-ts-mode . company-mode))
     :config 
     (electric-pair-mode t))
 
@@ -446,16 +466,16 @@ so we'll stick with eglot.
 ** Rust
 
 #+begin_src emacs-lisp
-  (use-package rust-mode
+  (use-package rust-ts-mode
     :ensure t
-    :mode ("\\.rs\\'" . rust-mode)
+    :mode ("\\.rs\\'" . rust-ts-mode)
     :config
     (electric-pair-mode t))
 
   (use-package cargo
     :ensure t
     :diminish cargo-minor-mode
-    :hook (rust-mode . cargo-minor-mode))
+    :hook (rust-ts-mode . cargo-minor-mode))
 #+end_src
 
 ** TOML
